@@ -39,6 +39,7 @@ public class ArticleMapperTest {
 
     @Test
     public void queryAllByTypeIdOrCreateTimeSortByTime() throws Exception {
+        //List<Article> articles = articleMapper.queryAllByTypeIdOrCreateTimeSortByTime(null,"2018年02月",0,5);
         List<Article> articles = articleMapper.queryAllByTypeIdOrCreateTimeSortByTime(null,"2018年02月",0,5);
         articles.forEach(System.out::println);
     }
@@ -72,6 +73,30 @@ public class ArticleMapperTest {
     @Test
     public void deleteArticle() throws Exception {
         int result = articleMapper.deleteArticle(1014);
+        System.out.println(result);
+    }
+
+    @Test
+    public void preArticleById() throws Exception {
+        Article article = articleMapper.preArticleById(1009);
+        System.out.println(article);
+    }
+
+    @Test
+    public void nextArticleById() throws Exception {
+        Article article = articleMapper.nextArticleById(1009);
+        System.out.println(article);
+    }
+
+    @Test
+    public void searchArticle() throws Exception {
+        List<Article> articles = articleMapper.searchArticle("1");
+        articles.forEach(System.out::println);
+    }
+
+    @Test
+    public void increaseReadNumber() throws Exception {
+        int result  = articleMapper.increaseReadNumber(1000);
         System.out.println(result);
     }
 }

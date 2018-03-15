@@ -18,7 +18,27 @@ public class TypeServiceImpl implements TypeService {
     private TypeMapper typeMapper;
 
     @Override
+    public int addType(Type type) {
+        return typeMapper.addType(type);
+    }
+
+    @Override
+    public int deleteType(Integer typeId) {
+        return typeMapper.deleteType(typeId);
+    }
+
+    @Override
+    public int editType(Type type) {
+        return typeMapper.editType(type);
+    }
+
+    @Override
     public List<Type> queryAll() {
         return typeMapper.queryAll();
+    }
+
+    @Override
+    public Type queryByTypeId(Integer typeId) {
+        return typeMapper.queryById(typeId);
     }
 }

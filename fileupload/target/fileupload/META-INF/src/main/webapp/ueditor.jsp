@@ -15,26 +15,28 @@
 <body>
 <div class="row text-center">
     <div class="col-md-8 col-md-push-2">
-        <!-- 加载编辑器的容器 -->
-        <script id="container" name="content" type="text/plain">
-                这里写你的初始化内容
-            </script>
-        <!-- 配置文件 -->
+        <form action="/ueditorServlet" method="post">
+            <h1>完整dome</h1>
+            <!-- 加载编辑器的容器 -->
+            <script id="container" name="content" type="text/plain"></script>
+            <button class="btn btn-primary" type="submit">提交</button>
+        </form>
+
+        <%--<!-- 配置文件 -->
         <script type="text/javascript" src="ueditor.config.js"></script>
         <!-- 编辑器源码文件 -->
         <script type="text/javascript" src="ueditor.all.js"></script>
         <!-- 实例化编辑器 -->
         <script type="text/javascript">
             var ue = UE.getEditor('container');
-        </script>
+        </script>--%>
     </div>
 </div>
-<buttuon id="getHtml" class="btn btn-primary">获得html内容</buttuon>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(function(){
-        $('#getHtml').click(function(){
+        $('button').click(function(){
             alert(getContent());
         });
     });
@@ -43,7 +45,6 @@
     function getContent() {
         return ue.getContent();
     }
-
 </script>
 </body>
 </html>

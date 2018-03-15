@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzkydh.mapper.UserMapper">
+    <insert id="addUser" parameterType="User">
+        insert ignore into user(email,phone,password,username,address)
+        value(#{email},#{phone},#{password},#{username},#{address})
+    </insert>
+
+    <delete id="deleteUserByUserId">
+        delete from user
+        where user_id = #{user_id}
+    </delete>
+
+    <update id="updateUserInfoByUserId" parameterType="User">
+        update ignore user
+        set email = #{email},phone = #{phone},username = #{username},address = #{address}
+        where user_id = #{userId}
+    </update>
+
+    <update id="updatePasswodByUserId">
+        update user
+        set password = #{password}
+        where user_id = #{userId}
+    </update>
+
+    <sql id="select_user_info">
+        select user_id,email,phone,username,address
+        from user
+    </sql>
+
+    <select id="queryUserInfoByUserId" resultType="User">
+        <include refid="select_user_info"></include>
+        where user_id = #{userId}
+    </select>
+
+    <select id="queryPasswordByUserId" resultType="String">
+        select password
+        from user
+        where user_id = #{userId}
+    </select>
+
+
+    <select id="queryUserInfoByPhoneOrEmail" resultType="User">
+        <include refid="select_user_info"></include>
+        where phone = #{loginName} or email = #{loginName}
+    </select>
+
+    <select id="queryPasswordByPhoneOrEmail" resultType="String">
+        select password
+        from user
+        where phone = #{loginName} or email = #{loginName}
+    </select>
+
+    <select id="queryAll" resultType="User">
+        select user_id,email,phone,password,username,address
+        from user
+    </select>
+</mapper>

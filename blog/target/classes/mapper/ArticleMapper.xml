@@ -82,7 +82,15 @@
         FROM article a
             INNER JOIN type t
                 ON a.type_id = t.type_id
-        WHERE t.type_id = #{typeId} OR DATE_FORMAT(a.create_time, '%Y年%m月') = #{createTime}
+        WHERE (t.type_id = #{typeId} OR DATE_FORMAT(a.create_time, '%Y年%m月') = #{createTime})
+           <!-- <where>
+                <if test="typeId!=null">
+                    and t.type_id = #{typeId}
+                </if>
+                <if test="createTime!=null">
+                    and DATE_FORMAT(a.create_time, '%Y年%m月') = #{createTime}
+                </if>
+            </where>-->
         ORDER BY
             a.create_time DESC
         LIMIT
@@ -92,7 +100,7 @@
     <select id="queryDate" resultType="CreateTimeCount">
         SELECT
             DATE_FORMAT(create_time, '%Y年%m月') "create_time",
-            count(*) "count"
+            count(*)                           "count"
         FROM article
         GROUP BY DATE_FORMAT(create_time, '%Y年%m月')
         ORDER BY
@@ -115,6 +123,22 @@
         </where>
     </select>
 
+    <!--<select id="queryAllByCritical" resultType="Article">
+        SELECT count(*)
+        FROM article
+        <trim
+        <where>
+            <choose>
+                <when test="typeId!=null">
+                    type_id = #{typeId}
+                </when>
+                <when test="createTime!=null">
+                    DATE_FORMAT(create_time, '%Y年%m月') = #{createTime}
+                </when>
+            </choose>
+        </where>
+    </select>
+-->
     <insert id="addArticle" parameterType="Article">
         INSERT INTO
             article (title, type_id, keyword, summary, context, read_number, create_time)
@@ -141,4 +165,69 @@
         WHERE
             article_id = #{articleId}
     </delete>
+
+    <select id="preArticleById" resultType="Article">
+        SELECT
+        article_id,
+        title,
+        type_id,
+        keyword,
+        summary,
+        context,
+        read_number,
+        create_time
+        FROM
+        article
+        WHERE
+        article_id > #{articleId}
+        ORDER BY
+        create_time asc
+        LIMIT 0, 1;
+    </select>
+
+    <select id="nextArticleById" resultType="Article">
+        SELECT
+            article_id,
+            title,
+            type_id,
+            keyword,
+            summary,
+            context,
+            read_number,
+            create_time
+        FROM
+            article
+        WHERE
+            article_id <![CDATA[ < ]]> #{articleId}
+        ORDER BY
+            create_time DESC
+        LIMIT 0, 1;
+    </select>
+    <select id="searchArticle" resultType="Article" parameterType="String">
+        <bind name="_key" value="'%' + key + '%'"></bind>
+        SELECT
+            article_id,
+            title,
+            type_id,
+            keyword,
+            summary,
+            context,
+            read_number,
+            create_time
+        FROM
+            article
+        WHERE
+            title like #{_key} or summary like #{_key}
+        ORDER BY
+            create_time DESC
+    </select>
+
+    <update id="increaseReadNumber">
+        update
+          article
+        set
+            read_number = read_number + 1
+        where
+            article_id = #{articleId}
+    </update>
 </mapper>

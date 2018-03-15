@@ -9,9 +9,17 @@ import java.util.List;
  * Description:
  */
 public interface TypeService {
+
+    int addType(Type type);
+
+    int deleteType(Integer typeId);
+
+    int editType(Type type);
     /**
      * 查询所有类型
      * @return
      */
     List<Type> queryAll();
+
+    Type queryByTypeId(Integer typeId);
 }

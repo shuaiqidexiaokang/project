@@ -16,10 +16,31 @@ import static org.junit.Assert.*;
 public class TypeMapperTest {
     @Autowired
     TypeMapper typeMapper;
+
+    @Test
+    public void addType() throws Exception {
+        Type type = new Type();
+        type.setTypeName("aa");
+        int result = typeMapper.addType(type);
+        System.out.println(result);
+    }
+    @Test
+    public void deleteType() throws Exception {
+        int result = typeMapper.deleteType(11);
+        System.out.println(result);
+    }
+    @Test
+    public void editType() throws Exception {
+        Type type = typeMapper.queryById(26);
+        type.setNumber(12);
+        int result = typeMapper.editType(type);
+        System.out.println(result);
+    }
+
     @Test
     public void queryAll() throws Exception {
         List<Type> types = typeMapper.queryAll();
-        System.out.println(types);
+        types.forEach(System.out::println);
     }
 
 }

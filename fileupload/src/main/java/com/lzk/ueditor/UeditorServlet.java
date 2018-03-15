@@ -14,5 +14,7 @@ public class UeditorServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Aa");
+        String content = request.getParameter("content");
+        System.out.println(content);
     }
 }

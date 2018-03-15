@@ -43,6 +43,19 @@ public class StudentController {
         return "save";
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable("id") Integer id,Model model) {
+        if (id != null) {
+            int result = studentService.deleteStudent(id);
+            if (result >0){
+                model.addAttribute("msg","删除成功");
+            }else{
+                model.addAttribute("msg","删除失败");
+            }
+        }
+        return "redirect:/list.jsp";
+    }
+
     @RequestMapping(value = "/findAllStudent",
             method = RequestMethod.GET,
             produces = {"application/json;charset=UTF-8"})

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzkydh.mapper.CommentMapper">
+
+    <insert id="addComment" parameterType="Comment">
+        insert into comment(user_id,recipe_id,score,content)
+        value(#{userId},#{recipeId},#{score},#{content})
+    </insert>
+
+    <delete id="deleteCommentByUserIdAndRecipeId">
+        delete from comment
+        where user_id = #{userId} and recipe_id = #{recipeId}
+    </delete>
+
+    <select id="queryByRecipeIdWithUser" resultType="Comment">
+        select
+          c.comment_id,
+          c.recipe_id,
+          c.user_id,
+          c.score,
+          c.content,
+          u.user_id "user.user_id",
+          u.username "user.username"
+        from comment c
+        inner join user u
+        on c.user_id = u.user_id
+        where c.recipe_id = #{recipeId}
+    </select>
+
+    <select id="queryByUserIdWithRecipe" resultType="Comment">
+        select
+          c.comment_id,
+          c.recipe_id,
+          c.user_id,
+          c.score,
+          c.content,
+          r.recipe_id "recipe.recipe_id",
+          r.user_id "recipe.user_id",
+          r.recipe_name "recipe.recipe_name",
+          r.pic_url "recipe.pic_url",
+          r.material "recipe.material",
+          r.profile "recipe.profile",
+          u.user_id "recipe.user.user_id",
+          u.username "recipe.user.username"
+        from comment c
+        inner join recipe r
+        on c.recipe_id = r.recipe_id
+        inner join user u
+        on r.user_id = u.user_id
+        where c.user_id = #{userId}
+    </select>
+</mapper>

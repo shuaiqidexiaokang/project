@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzkydh.mapper.LabelMapper">
+    <insert id="addLabel">
+        insert into label(label_mark,label_name)
+        value('其它',#{labelName})
+    </insert>
+
+    <delete id="deleteLabelByLabelId">
+        delete from label
+        where label_id = #{labelId}
+    </delete>
+
+    <sql id="select_label">
+        select label_id,label_mark,label_name,search_times
+        from label
+    </sql>
+
+    <select id="queryLabelByLimit" resultType="Label">
+        <include refid="select_label"></include>
+        order by search_times desc
+        limit #{offset},#{limit}
+    </select>
+
+    <update id="increaseSearchTimesByLabelName">
+        update label
+        set search_times = search_times + 1
+        where label_name in
+        <foreach collection="labelNames" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

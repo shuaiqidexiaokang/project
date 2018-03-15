@@ -9,9 +9,17 @@ import java.util.List;
  * Description:
  */
 public interface TypeMapper {
-    /**
-     * 查询所有类别
-     * @return 所有类别
-     */
+    int addType(Type type);
+
+    int deleteType(Integer typeId);
+
+    int editType(Type type);
+
+    int reduceNumber(Integer typeId);
+
+    int increaseNumber(Integer typeId);
+
+    Type queryById(Integer typeId);
+
     List<Type> queryAll();
 }

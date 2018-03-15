@@ -38,7 +38,7 @@
                 str += ' <div class="col-md-3">' + date[student].id + '</div>' +
                     '<div class="col-md-3">' + date[student].name + '</div>' +
                     '<div class="col-md-3">' + date[student].age + '</div>' +
-                    '<div class="col-md-3">修改 &ensp;删除</div>';
+                    '<div class="col-md-3">修改 &ensp;<a class="btn btn-primary" href="/student/delete/'+ date[student].id +'">删除</a></div>';
             }
             show.html(str);
         });

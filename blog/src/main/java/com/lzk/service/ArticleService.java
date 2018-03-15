@@ -12,6 +12,14 @@ import java.util.List;
  */
 public interface ArticleService {
 
+    //添加文章同时需要修改类型表中的文章数
+    int addArticle(Article article);
+
+    //删除文章同时需要修改类型表中的文章数
+    int deleteArticleById(Integer articleId);
+
+    int updateArticle(Article article,Integer oldTypeId);
+
     /**
      * 分页，根据页码和每页显示数查询文章
      *
@@ -89,4 +97,27 @@ public interface ArticleService {
      * @return
      */
     List<CreateTimeCount> queryDates();
+
+    /**
+     * 根据文章Id获取前一条记录
+     * @param articleId
+     * @return
+     */
+    Article preArticleById(Integer articleId);
+
+    /**
+     * 根据文章Id获取后一条记录
+     * @param articleId
+     * @return
+     */
+    Article nextArticleById(Integer articleId);
+
+    List<Article> searchArticle(String key);
+
+    /**
+     * 阅读文章，并增加阅读数
+     * @param articleId
+     * @return
+     */
+    Article readArticle(Integer articleId);
 }

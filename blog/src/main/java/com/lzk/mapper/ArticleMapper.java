@@ -55,6 +55,16 @@ public interface ArticleMapper {
     public int queryCountByTypeIdOrCreate(@Param("typeId") Integer typeId,@Param("createTime") String createTime);
 
     /**
+     * 根据条件查询文章
+     * @param typeId
+     * @param createTime
+     * @param offset
+     * @param limit
+     * @return
+     */
+    public int queryAllByCritical(@Param("typeId") Integer typeId,@Param("createTime") String createTime,@Param("offset") int offset, @Param("limit") int limit);
+
+    /**
      * 日期归档，查询所有日期月份 和数量
      * @return
      */
@@ -83,4 +93,27 @@ public interface ArticleMapper {
      * @return 删除的记录数 1：成功 0：失败
      */
     public int deleteArticle(Integer articleId);
+
+    /**
+     * 根据文章获取前一条记录
+     * @param articleId
+     * @return
+     */
+    public Article preArticleById(Integer articleId);
+
+    /**
+     * 根据文章获取后一条记录
+     * @param articleId
+     * @return
+     */
+    public Article nextArticleById(Integer articleId);
+
+    /**
+     * 根据关键字查找文章（查找标题、内容是否包含该关键字）
+     * @param key
+     * @return
+     */
+    public List<Article> searchArticle(@Param("key") String key);
+
+    public int increaseReadNumber(Integer articleId);
 }

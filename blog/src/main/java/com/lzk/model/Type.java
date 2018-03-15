@@ -9,6 +9,15 @@ public class Type {
     private String typeName;
     private Integer number;
 
+    public Type() {
+    }
+
+    public Type(Integer typeId, String typeName, Integer number) {
+        this.typeId = typeId;
+        this.typeName = typeName;
+        this.number = number;
+    }
+
     public Integer getTypeId() {
         return typeId;
     }
