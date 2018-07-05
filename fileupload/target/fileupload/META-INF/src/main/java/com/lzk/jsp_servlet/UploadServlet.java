@@ -42,10 +42,14 @@ public class UploadServlet extends HttpServlet {
         int startIndex = s.lastIndexOf("\"")+1;
         s = s.substring(startIndex);
         System.out.println(s);*/
+        System.out.println(str);
         int endIndex = str.lastIndexOf("\"");
+        System.out.println(endIndex);
         str = str.substring(0,endIndex);
+        System.out.println(str);
         int beginIndex = str.lastIndexOf("\"")+1;
-        String fileName = str.substring(beginIndex);
+        System.out.println(beginIndex);
+        String fileName = str.substring(endIndex + 1);
         System.out.println("fileName: " +fileName);
         //重新定位文件指针到头文件
         randomFile.seek(0);

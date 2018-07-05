@@ -60,15 +60,10 @@ public class ArticleServiceImpl implements ArticleService {
     public int updateArticle(Article article, Integer oldTypeId) {
         int newTypeId = article.getTypeId();
         if (newTypeId != oldTypeId){
-            int reduceCount = typeMapper.reduceNumber(oldTypeId);
-            if (reduceCount > 0){
-                int increaseCount = typeMapper.increaseNumber(newTypeId);
-                if (increaseCount > 0){
-                    return articleMapper.updateArticle(article);
-                }
-            }
+            typeMapper.reduceNumber(oldTypeId);
+            typeMapper.increaseNumber(newTypeId);
         }
-        return 0;
+        return articleMapper.updateArticle(article);
     }
 
     @Override

@@ -20,6 +20,11 @@ public class UserFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String username = (String) request.getSession().getAttribute("username");
+        System.out.println(request.getRequestURI());
+        String uri = request.getRequestURI();
+        if (uri.equals("/blog/article/index")||uri.contains("details")){
+            filterChain.doFilter(request,response);
+        }
         if (username !=null){
             System.out.println(request.getRequestURI());
             System.out.println(request.getRequestURL());

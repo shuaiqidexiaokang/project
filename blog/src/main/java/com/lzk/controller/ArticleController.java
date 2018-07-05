@@ -143,6 +143,7 @@ public class ArticleController {
     //修改的文章信息
     @RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
     public String updateArticle(Article article,@RequestParam("oldTypeId") Integer oldTypeId, Model model) {
+        System.out.println(article);
         int result = articleService.updateArticle(article,oldTypeId);
         if (result > 0 ){
             return "redirect:/article/list";
