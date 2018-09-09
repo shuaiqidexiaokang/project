@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzk.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.lzk.model.Person">
+    <id column="person_id" jdbcType="INTEGER" property="personId" />
+    <result column="person_name" jdbcType="VARCHAR" property="personName" />
+    <result column="person_age" jdbcType="INTEGER" property="personAge" />
+    <result column="person_birthday" jdbcType="TIMESTAMP" property="personBirthday" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    person_id, person_name, person_age, person_birthday
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_person
+    where person_id = #{personId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_person
+    where person_id = #{personId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lzk.model.Person">
+    insert into tb_person (person_id, person_name, person_age, 
+      person_birthday)
+    values (#{personId,jdbcType=INTEGER}, #{personName,jdbcType=VARCHAR}, #{personAge,jdbcType=INTEGER}, 
+      #{personBirthday,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lzk.model.Person">
+    insert into tb_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        person_id,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="personAge != null">
+        person_age,
+      </if>
+      <if test="personBirthday != null">
+        person_birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personId != null">
+        #{personId,jdbcType=INTEGER},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personBirthday != null">
+        #{personBirthday,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lzk.model.Person">
+    update tb_person
+    <set>
+      <if test="personName != null">
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personAge != null">
+        person_age = #{personAge,jdbcType=INTEGER},
+      </if>
+      <if test="personBirthday != null">
+        person_birthday = #{personBirthday,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where person_id = #{personId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lzk.model.Person">
+    update tb_person
+    set person_name = #{personName,jdbcType=VARCHAR},
+      person_age = #{personAge,jdbcType=INTEGER},
+      person_birthday = #{personBirthday,jdbcType=TIMESTAMP}
+    where person_id = #{personId,jdbcType=INTEGER}
+  </update>
+</mapper>

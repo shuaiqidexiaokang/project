@@ -31,14 +31,14 @@
         onload();
     })
     function onload(){
-        $.get("/student/list", {}, function (date) {
+        $.get("/student/student/list", {}, function (date) {
             var show = $('#show');
             var str = "";
             for (var student in date) {
                 str += ' <div class="col-md-3">' + date[student].id + '</div>' +
                     '<div class="col-md-3">' + date[student].name + '</div>' +
                     '<div class="col-md-3">' + date[student].age + '</div>' +
-                    '<div class="col-md-3">修改 &ensp;<a class="btn btn-primary" href="/student/delete/'+ date[student].id +'">删除</a></div>';
+                    '<div class="col-md-3">修改 &ensp;<a class="btn btn-primary" href="/student/student/delete/'+ date[student].id +'">删除</a></div>';
             }
             show.html(str);
         });

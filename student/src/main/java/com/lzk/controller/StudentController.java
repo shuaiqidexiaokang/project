@@ -49,8 +49,10 @@ public class StudentController {
             int result = studentService.deleteStudent(id);
             if (result >0){
                 model.addAttribute("msg","删除成功");
+                System.out.println("删除成功");
             }else{
                 model.addAttribute("msg","删除失败");
+                System.out.println("删除失败");
             }
         }
         return "redirect:/list.jsp";
